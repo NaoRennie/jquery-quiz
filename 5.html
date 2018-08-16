@@ -1,0 +1,65 @@
+<body>
+  BTC価格のリアルタイムチャートに25・50・75日移動平均線を追加しましょう<br>
+  チャートライブラリのドキュメントは読まなくても解けます<br>
+  file:///スキームだとChromeで表示されないので、Firefoxを使うか
+  <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer" target="_brank">Live Server</a>
+  をVS Codeにインストールしてローカルサーバーを立ててください。<br>
+  「127.0.0.1」の部分をlocalhostに変えるとChromeでもチャートが表示されます。
+
+  <div id="app">
+
+  </div>
+
+  <style>
+
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.slim.js"></script>
+  <script>
+const coinName = 'BTC';
+const apiURL = 'https://cryptcoin.now.sh';
+
+$.getJSON(`${apiURL}/api/coin/${coinName}`).then(({ data }) => {
+  // seriesの要素数分ラインが増える
+  const options = {
+    chart: {
+      type: 'line',
+      height: 600,
+    },
+    series: [{
+      name: '現在値',
+      data: data.map(d => d.closeBid),
+    }],
+    xaxis: {
+      categories: data.map(d => d.time),
+    },
+  };
+
+  const chart = new ApexCharts(document.querySelector("#app"), options);
+  chart.render();
+
+  const socket = io(apiURL);
+  socket.on('connect', () => {
+    // join/messageという文字列はsocketサーバー開発者の命名に依存する
+    socket.emit('join', coinName);
+    socket.on('message', e => {
+      const singleData = e.data;
+      const categories = options.xaxis.categories;
+      const coinData = options.series[0].data;
+
+      if (categories[categories.length - 1] === singleData.time) {
+        // 時刻が同じなら末尾の連想配列を差し替える
+        coinData[coinData.length - 1] = singleData.closeBid;
+      } else {
+        // 時刻が更新されたら末尾に追加して先頭を削除する
+        coinData.push(singleData.closeBid);
+        coinData.shift();
+      }
+
+      chart.updateOptions(options);
+    });
+  });
+});
+  </script>
+</body>

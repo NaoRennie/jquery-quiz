@@ -1,0 +1,35 @@
+<body>
+reduceを駆使して1文（文末のセミコロンが一つだけ）に短縮しましょう。<br>
+ソースコードコメントの指定範囲を書き換えて前の問題と同じ状態にしてください。<br>
+配列内のURL文字列を書き換えてはいけません。<br>
+
+  <div id="app"></div>
+
+  <style>
+  .square {
+    display: inline-block;
+  }
+
+  .square > img {
+    width: 100%;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+$([
+  'oSKf9hanjZQ/VCOJRVRiFJI/AAAAAAAAmvM/gQcL6jUm-HE/s150/eto_mark01_nezumi',
+  'bMsgnav8nno/VCOJRzUeoVI/AAAAAAAAmu0/cbGrWqzC2hc/s150/eto_mark02_ushi',
+  'XIN5WzvTdSQ/VCOJSFAq98I/AAAAAAAAmu4/mrjNpVyR13o/s150/eto_mark03_tora',
+  'sCYd5MsquF4/VCOJS6eoLvI/AAAAAAAAmvE/EDFPg_-YdmQ/s150/eto_mark04_usagi',
+  '7OzCCLysaWY/VCOJTY7fF5I/AAAAAAAAmvY/HqoY2F8aEqA/s150/eto_mark05_tatsu',
+  'EwTBe_PVaPM/VCOJTyKzgXI/AAAAAAAAmvU/1wxwG9Ij8NY/s150/eto_mark06_hebi',
+  '763vLEAtakc/VCOJUdnPPkI/AAAAAAAAmv4/Z6WP874jNMA/s150/eto_mark07_uma',
+  'VLWooGuODXQ/VCOJVO9PCmI/AAAAAAAAmvk/LHUUqeHpCE0/s150/eto_mark08_hitsuji',
+  '8JYVELlSe8Y/VCOJVfrEMAI/AAAAAAAAmvo/4Tya5TkVZxQ/s150/eto_mark09_saru',
+  '5-dW591Z9j0/VCOJWCuCgyI/AAAAAAAAmv8/_ZkMXKk5Y8U/s150/eto_mark10_tori',
+  'qNz5DXF_6lo/VCOJWh4xdQI/AAAAAAAAmwE/0PTCP7qHb50/s150/eto_mark11_inu',
+  'e5GvAc2KkKM/VCOJXLJEj-I/AAAAAAAAmwM/RqM5twBmVQo/s150/eto_mark12_inoshishi',
+  // 書き換えはこの下の行から
+].reduce());
+  </script>
+</body>
